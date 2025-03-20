@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Pacientes</title>
+</head>
+<body>
+<h1>Pacientes Cadastrados</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Data de Nascimento</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="paciente : ${pacientes}">
+        <td th:text="${paciente.id}"></td>
+        <td th:text="${paciente.nome}"></td>
+        <td th:text="${paciente.dataNascimento}"></td>
+        <td>
+            <a th:href="@{/pacientes/{id}/editar(id=${paciente.id})}">Editar</a> |
+            <form th:action="@{/pacientes/{id}(id=${paciente.id})}" method="post" onsubmit="return confirm('Você tem certeza que deseja excluir?');">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit">Excluir</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<a href="/pacientes/cadastrar">Cadastrar Novo Paciente</a>
+</body>
+</html>
+
